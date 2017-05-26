@@ -1,0 +1,25 @@
+header {
+	font-family: 'Montserrat Subrayada', sans-serif;
+	margin-top: 40px;
+	margin-bottom: 30px;
+}
+
+.session {
+	width: 500px;
+	margin: 0 auto;
+	font-size: 20px;
+	letter-spacing: 1px;
+}
+
+button {
+	margin-right: 15px;
+	margin-left: 15px;
+	width: 50px;
+	background-color: white;
+	outline: none;
+	border: none;
+}
+
+button:hover {
+	color: red;
+}

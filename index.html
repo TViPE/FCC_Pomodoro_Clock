@@ -19,7 +19,7 @@
 <body ng-app="pomodoroApp" ng-controller="pomodoroCtrl">
 	<div class="container-fluid">
 		<header class="text-center">
-			<h1>Pomodoro Clock</h1>
+			<p>Pomodoro Clock</p>
 		</header>
 		<div class="session">
 			<div class="row">
@@ -48,6 +48,10 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		<div class="timer text-center" ng-click="toggleTimer()">
+			<h1>{{sessionName}}</h1>
+			<p>{{timeLeft}}</p>
 		</div>
 	</div>
 	

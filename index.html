@@ -30,7 +30,7 @@
 						</div>
 						<div class="col-md-12 col-sm-12">
 							<button class="minus" ng-click="minusBreakTime()">-</button>
-							<span class="time">{{breaktime}}</span>
+							<span class="time">{{breakTime}}</span>
 							<button class="plus" ng-click="plusBreakTime()">+</button>
 						</div>
 					</div>
@@ -42,7 +42,7 @@
 						</div>
 						<div class="col-md-12 col-sm-12">
 							<button class="minus" ng-click="minusSessionTime()">-</button>
-							<span class="time">{{sessiontime}}</span>
+							<span class="time">{{sessionTime}}</span>
 							<button class="plus" ng-click="plusSessionTime()">+</button>
 						</div>
 					</div>
@@ -50,7 +50,7 @@
 			</div>
 		</div>
 		<div class="timer text-center" ng-click="toggleTimer()">
-			<h1>{{sessionName}}</h1>
+			<h1>{{currentName}}</h1>
 			<p>{{timeLeft}}</p>
 		</div>
 	</div>

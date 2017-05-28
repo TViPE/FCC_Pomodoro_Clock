@@ -29,9 +29,9 @@
 							<p>BREAK LENGTH</p>
 						</div>
 						<div class="col-md-12 col-sm-12">
-							<button class="minus" ng-click="minusBreakTime()">-</button>
+							<button class="minus" ng-click="minusBreakTime()" ng-disabled="disableBtn">-</button>
 							<span class="time">{{breakTime}}</span>
-							<button class="plus" ng-click="plusBreakTime()">+</button>
+							<button class="plus" ng-click="plusBreakTime()" ng-disabled="disableBtn">+</button>
 						</div>
 					</div>
 				</div>
@@ -41,9 +41,9 @@
 							<p>SESSION LENGTH</p>
 						</div>
 						<div class="col-md-12 col-sm-12">
-							<button class="minus" ng-click="minusSessionTime()">-</button>
+							<button class="minus" ng-click="minusSessionTime()" ng-disabled="disableBtn">-</button>
 							<span class="time">{{sessionTime}}</span>
-							<button class="plus" ng-click="plusSessionTime()">+</button>
+							<button class="plus" ng-click="plusSessionTime()" ng-disabled="disableBtn">+</button>
 						</div>
 					</div>
 				</div>

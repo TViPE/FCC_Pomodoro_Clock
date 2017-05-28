@@ -36,7 +36,9 @@ app.controller("pomodoroCtrl", function ($scope, $interval) {
 	//-----------------------------//
 
 	$scope.minusTimeLeft = function(){
-		$scope.timeLeft--;
+		//$scope.timeLeft--;
+		$scope.timeLeft = $scope.convertToTime($scope.totalSec);
+		$scope.totalSec--;
 	}
 
 	$scope.toggleTimer = function() {
@@ -101,4 +103,13 @@ app.controller("pomodoroCtrl", function ($scope, $interval) {
 		var str = minStr +":" + secStr;
 		return str;
 	}
+	// console.log($scope.convertToTime($scope.totalSec));
+	// $interval(function(){
+	// 	console.log($scope.convertToTime($scope.totalSec));
+	// 	$scope.totalSec--;
+	// },1000);
+	
+
+
+
 })

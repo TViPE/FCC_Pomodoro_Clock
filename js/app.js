@@ -7,26 +7,31 @@ app.controller("pomodoroCtrl", function ($scope, $interval) {
 	$scope.isRunning = false;
 	$scope.timeLeft = $scope.sessionTime; 
 	$scope.currentName = $scope.sessionName;
+	$scope.disableBtn = false;
 	var promise;
+	$scope.totalSec = $scope.sessionTime * 60;
 
 	// Button
 	$scope.minusBreakTime = function(){
-		if($scope.breaktime < 1) {
-			$scope.breaktime = 1;
+		if($scope.breakTime < 1) {
+			$scope.breakTime = 1;
 		}
-		$scope.breaktime--;
+		$scope.breakTime--;
+
 	}
 	$scope.plusBreakTime = function(){
-		$scope.breaktime++;
+		$scope.breakTime++;
 	}
 	$scope.minusSessionTime = function(){
-		if($scope.sessiontime < 1) {
-			$scope.sessiontime = 1;
+		if($scope.sessionTime < 1) {
+			$scope.sessionTime = 1;
 		}
-		$scope.sessiontime--;
+		$scope.sessionTime--;
+		$scope.timeLeft = $scope.sessionTime; 
 	}
 	$scope.plusSessionTime = function(){
-		$scope.sessiontime++;
+		$scope.sessionTime++;
+		$scope.timeLeft = $scope.sessionTime; 
 	}
 	//-----------------------------//
 
@@ -34,27 +39,29 @@ app.controller("pomodoroCtrl", function ($scope, $interval) {
 		$scope.timeLeft--;
 	}
 
-	//promise =$interval($scope.minusTimeLeft(), 1000);
 	$scope.toggleTimer = function() {
 		$scope.isRunning = !($scope.isRunning);
 		if($scope.isRunning == true){
-			//promise = $interval($scope.minusTimeLeft, 1000);
 			promise = $interval(function(){
+				// Switching session
 				if($scope.timeLeft < 1){
 					if($scope.currentName == $scope.sessionName) {
 						$scope.currentName = $scope.breakName;
-						console.log($scope.currentName);
 						$scope.timeLeft = $scope.breakTime;
 					} else if($scope.currentName == $scope.breakName) {
 						$scope.currentName = $scope.sessionName;
-						console.log($scope.currentName);
 						$scope.timeLeft = $scope.sessionTime;
 					}
 				}
+
+				// Disable plus/minus button while session is in progress.
+				$scope.disableBtn = true; 
+
 				$scope.minusTimeLeft();
 			}, 1000);
 
 		} else if($scope.isRunning === false) {
+			// Pause the timer
 			$interval.cancel(promise);
 		}	
 	}
@@ -63,38 +70,35 @@ app.controller("pomodoroCtrl", function ($scope, $interval) {
 		console.log("Running Update Timer");
 		if($scope.timeLeft < 1){
 			if($scope.currentName == $scope.sessionName) {
-				$scope.currentName == $scope.breakName;
+				$scope.currentName = $scope.breakName;
 				//console.log($scope.currentName);
 				$scope.timeLeft = $scope.breakTime;
 			} else {
-				$scope.currentName == $scope.sessionName;
+				$scope.currentName = $scope.sessionName;
 				//console.log($scope.currentName);
 				$scope.timeLeft = $scope.sessionTime;
 			}
 		}
 	}
 
-
-
-
-	// $scope.updateTimer = function(){
-	// 	if($scope.name == "Session"){
-	// 		$scope.timeLeft = $scope.sessionTime;
-	// 		$scope.minusTimeLeft();
-	// 		promise =$interval($scope.minusTimeLeft, 1000);
-	// 		if($scope.timeLeft < 1) {
-	// 			$scope.name = "Break";
-	// 		}
-	// 	}
-	// 	if ($scope.name == "Break");
-	// 		$scope.timeLeft = $scope.breakTime;
-	// 		$scope.minusTimeLeft();
-	// 		promise =$interval($scope.minusTimeLeft, 1000);
-	// 		if($scope.timeLeft < 1) {
-	// 			$scope.name = "Session";
-	// 		}
-	// }
-
-
-
+	$scope.convertToTime = function(totalSec){
+		var min = Math.floor(totalSec / 60);
+		var sec = (totalSec %60);
+		var minStr = "";
+		if(min < 10){
+			minStr =  "0" + min;
+		} else {
+			minStr = min;
+		}
+		var secStr = "";
+		if(sec < 10){
+			secStr = "0" + sec;
+		} else if (sec == 60){
+			secStr = "00";
+		} else {
+			secStr = sec;
+		}
+		var str = minStr +":" + secStr;
+		return str;
+	}
 })

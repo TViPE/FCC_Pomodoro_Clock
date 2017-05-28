@@ -9,9 +9,9 @@ app.controller("pomodoroCtrl", function ($scope, $interval) {
 	$scope.currentName = $scope.sessionName;
 	$scope.disableBtn = false;
 	var promise;
-	$scope.totalSec = $scope.sessionTime * 60;
+	$scope.totalSec = $scope.timeLeft * 60;
 
-	// Button
+	// Break Buttons
 	$scope.minusBreakTime = function(){
 		if($scope.breakTime < 1) {
 			$scope.breakTime = 1;
@@ -22,16 +22,24 @@ app.controller("pomodoroCtrl", function ($scope, $interval) {
 	$scope.plusBreakTime = function(){
 		$scope.breakTime++;
 	}
+
+	//Session Buttons
 	$scope.minusSessionTime = function(){
 		if($scope.sessionTime < 1) {
 			$scope.sessionTime = 1;
 		}
 		$scope.sessionTime--;
 		$scope.timeLeft = $scope.sessionTime; 
+		$scope.totalSec = $scope.timeLeft * 60;
+		// console.log("timeLeft: " + $scope.timeLeft);
+		// console.log("totalSec: " + $scope.totalSec);
 	}
 	$scope.plusSessionTime = function(){
 		$scope.sessionTime++;
 		$scope.timeLeft = $scope.sessionTime; 
+		$scope.totalSec = $scope.timeLeft * 60;
+		// console.log("timeLeft: " + $scope.timeLeft);
+		// console.log("totalSec: " + $scope.totalSec);
 	}
 	//-----------------------------//
 
@@ -46,13 +54,15 @@ app.controller("pomodoroCtrl", function ($scope, $interval) {
 		if($scope.isRunning == true){
 			promise = $interval(function(){
 				// Switching session
-				if($scope.timeLeft < 1){
+				if($scope.totalSec < 1){
 					if($scope.currentName == $scope.sessionName) {
 						$scope.currentName = $scope.breakName;
 						$scope.timeLeft = $scope.breakTime;
+						$scope.totalSec = $scope.timeLeft * 60;
 					} else if($scope.currentName == $scope.breakName) {
 						$scope.currentName = $scope.sessionName;
 						$scope.timeLeft = $scope.sessionTime;
+						$scope.totalSec = $scope.timeLeft * 60;
 					}
 				}
 
@@ -103,13 +113,4 @@ app.controller("pomodoroCtrl", function ($scope, $interval) {
 		var str = minStr +":" + secStr;
 		return str;
 	}
-	// console.log($scope.convertToTime($scope.totalSec));
-	// $interval(function(){
-	// 	console.log($scope.convertToTime($scope.totalSec));
-	// 	$scope.totalSec--;
-	// },1000);
-	
-
-
-
 })
